@@ -18,6 +18,8 @@ const product = Astro.props;
 const title = product.data.name;
 const description = product.data.descriptionHtmlSimple;
 const price = product.data.listPrice;
+const color = product.data.colors[0].colorName;
+const image = product.data.image;
 
 ---
 <Layout>
@@ -32,20 +34,18 @@ const price = product.data.listPrice;
 
         <img
           class="divider"
-          src="../images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg"
+          src={product.data.image}
           alt="Marmot Ajax tent"
         />
 
         <p class="product-card__price">${price}</p>
 
-        <p class="product__color">Pale Pumpkin/Terracotta</p>
+        <p class="product__color">{color}</p>
 
-        <p class="product__description">
-          {description}
-        </p>
+        <p class="product__description" set:html={description}></p>
 
         <div class="product-detail__add">
-          <button id="addToCart" data-id="880RR">Add to Cart</button>
+          <button id="addToCart" data-id={product.id}>Add to Cart</button>
         </div>
       </section>
     </main>
