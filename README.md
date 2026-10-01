@@ -1,20 +1,46 @@
-# Sleepoutside - Fronend starter code
+# Astro Starter Kit: Basics
 
-## Description
+```sh
+npm create astro@latest -- --template basics
+```
 
-Use this as a starting point to complete the WDD 360 team activity: the SleepOutside web application. It scaffolds out a simple web app with Vite support to bundle up our assets.
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## Prerequisites
+## 🚀 Project Structure
 
-- You must have Node installed. Visit [https://byui-cit.github.io/learning-modules/modules/general/node-installation/](https://byui-cit.github.io/learning-modules/modules/general/node-installation/).
+Inside of your Astro project, you'll see the following folders and files:
 
-## Setup
+```text
+/
+├── public/
+│   └── favicon.svg
+├── src
+│   ├── assets
+│   │   └── astro.svg
+│   ├── components
+│   │   └── Welcome.astro
+│   ├── layouts
+│   │   └── Layout.astro
+│   └── pages
+│       └── index.astro
+└── package.json
+```
 
-- `npm install`
-- `npm run start` starts up a local server and updates on any JS or CSS/SCSS changes.
+To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
-## Other commands
+## 🧞 Commands
 
-- `npm run build` to build final files when you are ready to turn in.
-- `npm run lint` to run ESLint against your code to find errors.
-- `npm run format` to run Prettier to automatically format your code.
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
