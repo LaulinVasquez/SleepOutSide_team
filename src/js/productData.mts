@@ -7,10 +7,15 @@ function convertToJson(res:Response) {
   }
 }
 
-export function getData(category = "tents") {
-  return fetch(`../json/${category}.json`)
-    .then(convertToJson)
-    .then((data) => data);
+// export function getData(category = "tents") {
+//   return fetch(`../json/${category}.json`)
+//     .then(convertToJson)
+//     .then((data) => data);
+// }
+
+export async function getData(): Promise<Product[]> {
+  const response = await fetch("/api/products");
+  return convertToJson(response)
 }
 
 export async function findProductById(id:string) {
