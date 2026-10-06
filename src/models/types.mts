@@ -25,3 +25,25 @@ export interface Product {
   images: string[];
   reviews: Review[];
 }
+
+export interface OrderItem {
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+export interface Order {
+  id: string;
+  orderNumber: string;
+  userId: string;
+  items: OrderItem[];
+  totalCost: number;
+}
+
+export interface Alert {
+  id: string;
+  message: string;
+  type: string;
+  condition: string;
+}
