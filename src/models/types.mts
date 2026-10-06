@@ -8,6 +8,7 @@ export interface User {
     email: string;
     password: string;
     cart: CarItem[];
+    order: Order[];
 };
 
 export interface Review {

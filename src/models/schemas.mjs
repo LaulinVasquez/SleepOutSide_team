@@ -1,39 +1,81 @@
-
-
 export const userSchema = {
-    type: "object",
-    properties: {
-        id: {
-            type: "string"
-        },
-        username: {
-            type: "string"
-        },
-        email: {
-            type: "string"
-        },
-        password: {
-            type: "string"
-        },
-        cart: {
-            type: "array",
-            items: {
-                type: "object",
-
-                properties: {
-                    productId: {
-                        type: "string"
-                    },
-                    quantity: {
-                        type: "integer",
-                        minimum: 1
-                    }
-                },
-                required: ["productId", "quantity"]
-            },
-        },
+  type: "object",
+  properties: {
+    id: {
+      type: "string",
     },
-    required: ["id","username", "email", "password", "cart"]
+    username: {
+      type: "string",
+    },
+    email: {
+      type: "string",
+    },
+    password: {
+      type: "string",
+    },
+    cart: {
+      type: "array",
+      items: {
+        type: "object",
+
+        properties: {
+          productId: {
+            type: "string",
+          },
+          quantity: {
+            type: "integer",
+            minimum: 1,
+          },
+        },
+        required: ["productId", "quantity"],
+      },
+    },
+    order: {
+      type: "object",
+
+      properties: {
+        id: {
+          type: "string",
+        },
+        orderNumber: {
+          type: "string",
+        },
+        userId: {
+          type: "string",
+        },
+        items: {
+          type: "array",
+          items: {
+            type: "object",
+
+            properties: {
+              productId: {
+                type: "string",
+              },
+              name: {
+                type: "string",
+              },
+              price: {
+                type: "number",
+                minimum: 0,
+              },
+              quantity: {
+                type: "intiger",
+                minimum: 1,
+              },
+            },
+            required: ["productId", "name", "price", "quantity"],
+          },
+        },
+        totalCost: {
+          type: "number",
+          minimum: 0,
+        },
+      },
+      required: ["id", "orderNumber", "userId", "items", "totalCost"],
+    },
+  },
+  required: ["id", "username", "email", "password", "cart"],
 };
 
 export const productSchema = {
@@ -41,31 +83,35 @@ export const productSchema = {
 
   properties: {
     id: {
-      type: "string"
+      type: "string",
     },
 
     name: {
-      type: "string"
+      type: "string",
     },
 
     description: {
-      type: "string"
+      type: "string",
     },
 
     price: {
       type: "number",
-      minimum: 0
+      minimum: 0,
+    },
+
+    color: {
+        type:"string",
     },
 
     category: {
-      type: "string"
+      type: "string",
     },
 
     images: {
       type: "array",
       items: {
-        type: "string"
-      }
+        type: "string",
+      },
     },
 
     reviews: {
@@ -76,27 +122,23 @@ export const productSchema = {
 
         properties: {
           userId: {
-            type: "string"
+            type: "string",
           },
 
           rating: {
             type: "integer",
             minimum: 1,
-            maximum: 5
+            maximum: 5,
           },
 
           comment: {
-            type: "string"
-          }
+            type: "string",
+          },
         },
 
-        required: [
-          "userId",
-          "rating",
-          "comment"
-        ]
-      }
-    }
+        required: ["userId", "rating", "comment"],
+      },
+    },
   },
 
   required: [
@@ -106,80 +148,32 @@ export const productSchema = {
     "price",
     "category",
     "images",
-    "reviews"
-  ]
+    "reviews",
+    
+  ],
 };
 
-export const orderSchema = {
-    type: "object",
-
-    properties: {
-        id: {
-            type: "string"
-        },
-        orderNumber: {
-            type: "string"
-        },
-        userId: {
-            type: "string"
-        },
-        items: {
-            type: "array",
-            items: {
-                type: "object",
-
-                properties: {
-                    productId: {
-                        type: "string"
-                    },
-                    name: {
-                        type:"string"
-                    },
-                    price: {
-                        type: "number",
-                        minimum: 0
-                    },
-                    quantity: {
-                        type: "intiger",
-                        minimum: 1
-                    }
-                },
-                required: ["productId", "name", "price", "quantity"]
-            }
-        },
-        totalCost: {
-            type: "number",
-            minimum: 0
-        }
-    },
-    required: ["id", "orderNumber", "userId", "items", "totalCost"]
-}
 
 export const alertSchema = {
   type: "object",
 
   properties: {
     id: {
-      type: "string"
+      type: "string",
     },
 
     message: {
-      type: "string"
+      type: "string",
     },
 
     type: {
-      type: "string"
+      type: "string",
     },
 
     condition: {
-      type: "string"
-    }
+      type: "string",
+    },
   },
 
-  required: [
-    "id",
-    "message",
-    "type",
-    "condition"
-  ]
+  required: ["id", "message", "type", "condition"],
 };
