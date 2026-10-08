@@ -12,7 +12,7 @@ function cartItemTemplate(item:Product) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.image}"
+      src="${item.images.primaryExtraLarge}"
       alt="${item.name}"
     />
   </a>

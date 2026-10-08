@@ -1,10 +1,20 @@
 import type {Product} from "./types.mts"
-function convertToJson(res:Response) {
+
+const baseURL = import.meta.env.PUBLIC_SERVER_URL;
+
+async function convertToJson(res: Response) {
   if (res.ok) {
     return res.json();
-  } else {
-    throw new Error("Bad Response");
   }
+
+  let details = "";
+  try {
+    details = await res.text();
+  } catch {
+    details = "The server did not provide an error response.";
+  }
+
+  throw new Error(`Request failed (${res.status} ${res.statusText}): ${details}`);
 }
 
 // export function getData(category = "tents") {
@@ -19,6 +29,8 @@ export async function getData(): Promise<Product[]> {
 }
 
 export async function findProductById(id:string) {
-  const products = await getData();
-  return products.find((item:Product) => item.id === id);
+  const response = await fetch(baseURL + `products/${id}`);
+  const product = await convertToJson(response) as Product;
+  console.log(product)
+  return product;
 }
