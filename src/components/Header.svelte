@@ -109,4 +109,10 @@
   .cart--bounce {
     animation: cart-bounce 0.5s ease-in-out;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cart--bounce {
+      animation: none;
+    }
+  }
 </style>
