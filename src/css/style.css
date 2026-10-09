@@ -247,6 +247,18 @@ button {
   width: 100%;
 }
 
+.product__srp {
+  text-decoration: line-through;
+  color: var(--light-grey);
+  margin-right: 0.5em;
+  font-weight: normal;
+}
+
+.product__discount {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
 /* Start cart list card styles */
 .cart-card {
   display: grid;
