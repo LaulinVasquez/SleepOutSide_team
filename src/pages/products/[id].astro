@@ -17,9 +17,15 @@ type Props = CollectionEntry<"products">;
 const product = Astro.props;
 const title = product.data.name;
 const description = product.data.descriptionHtmlSimple;
-const price = product.data.listPrice;
+const price = product.data.finalPrice;
+const srp = product.data.suggestedRetailPrice;
 const color = product.data.colors[0].colorName;
 const image = product.data.image;
+
+// visual discount indicator: how much cheaper finalPrice is than the suggested retail price
+const discountAmount = srp - price;
+const discountPercent = srp > 0 ? Math.round((discountAmount / srp) * 100) : 0;
+const hasDiscount = discountAmount > 0;
 
 ---
 <Layout>
@@ -38,7 +44,16 @@ const image = product.data.image;
           alt="Marmot Ajax tent"
         />
 
-        <p class="product-card__price">${price}</p>
+        <p class="product-card__price">
+          {hasDiscount && <span class="product__srp">${srp.toFixed(2)}</span>}
+          ${price.toFixed(2)}
+        </p>
+
+        {hasDiscount && (
+          <p class="product__discount">
+            Save ${discountAmount.toFixed(2)} ({discountPercent}% off)
+          </p>
+        )}
 
         <p class="product__color">{color}</p>
 
