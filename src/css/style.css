@@ -172,6 +172,11 @@ button {
 }
 /* End utility classes */
 
+.hide {
+  display: none;
+}
+
+
 /* Cart icon styles */
 .cart {
   margin-left: 1em;
@@ -276,6 +281,23 @@ button {
 .cart-card__price {
   grid-row: 2;
   grid-column: 3;
+}
+
+.cart-empty {
+  list-style: none;
+  text-align: center;
+  padding: 1em;
+  color: var(--dark-grey);
+}
+
+.cart-footer {
+  text-align: right;
+  padding: 0.5em 1em;
+}
+
+.cart-total {
+  font-size: var(--large-font);
+  font-weight: bold;
 }
 
 @media screen and (min-width: 500px) {

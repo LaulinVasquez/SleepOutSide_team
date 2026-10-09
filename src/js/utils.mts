@@ -13,7 +13,20 @@ export function getLocalStorage(key: string) {
     return [];
   }
 
-  return JSON.parse(data);
+  let parsed;
+  try {
+    parsed = JSON.parse(data);
+  } catch {
+    // malformed JSON stored under this key — treat as empty
+    return [];
+  }
+
+  // guard against stored values like "null" or non-array data
+  if (!Array.isArray(parsed)) {
+    return [];
+  }
+
+  return parsed;
 }
 // save data to local storage
 export function setLocalStorage(key:string, data:any) {
