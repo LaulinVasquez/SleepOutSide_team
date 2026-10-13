@@ -7,6 +7,8 @@ function addProductToCart(product: Product) {
   const cart = getLocalStorage("so-cart") || [];
   cart.push(product);
   setLocalStorage("so-cart", cart);
+  // let the header (cart icon) know an item was added, so it can animate
+  window.dispatchEvent(new CustomEvent("cart:add", { detail: product }));
 }
 // add to cart button event handler
 async function addToCartHandler(e:Event) {

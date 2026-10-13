@@ -1,18 +1,31 @@
-import { getLocalStorage } from "./utils.mjs";
-import type {Product} from "./types.mjs"
+import { getLocalStorage } from "./utils.mts";
+import type {Product} from "./types.mts"
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
-  const htmlItems = cartItems.map((item:Product) => cartItemTemplate(item));
-  const listEl = document.querySelector(".product-list")
-  if(listEl)  listEl.innerHTML = htmlItems.join("");
+  const cartItems: Product[] = getLocalStorage("so-cart");
+  const listEl = document.querySelector(".product-list");
+  const footerEl = document.querySelector(".cart-footer");
+  const totalEl = document.querySelector(".cart-total");
+
+  if (!cartItems.length) {
+    if (listEl) listEl.innerHTML = `<li class="cart-empty">Your cart is empty.</li>`;
+    footerEl?.classList.add("hide");
+    return;
+  }
+
+  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  if (listEl) listEl.innerHTML = htmlItems.join("");
+
+  const total = cartItems.reduce((sum, item) => sum + (item.finalPrice ?? 0), 0);
+  if (totalEl) totalEl.textContent = `Total: $${total.toFixed(2)}`;
+  footerEl?.classList.remove("hide");
 }
 
 function cartItemTemplate(item:Product) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.images.primaryExtraLarge}"
+      src="${item.image}"
       alt="${item.name}"
     />
   </a>
