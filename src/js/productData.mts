@@ -1,36 +1,24 @@
-import type {Product} from "./types.mts"
+import type { Product } from "./types.mts";
 
 const baseURL = import.meta.env.PUBLIC_SERVER_URL;
 
-async function convertToJson(res: Response) {
-  if (res.ok) {
-    return res.json();
+async function convertToJson(response: Response) {
+  if (response.ok) {
+    return response.json();
   }
 
-  let details = "";
-  try {
-    details = await res.text();
-  } catch {
-    details = "The server did not provide an error response.";
-  }
-
-  throw new Error(`Request failed (${res.status} ${res.statusText}): ${details}`);
+  const details = await response.text();
+  throw new Error(
+    `Request failed (${response.status} ${response.statusText}): ${details}`
+  );
 }
-
-// export function getData(category = "tents") {
-//   return fetch(`../json/${category}.json`)
-//     .then(convertToJson)
-//     .then((data) => data);
-// }
 
 export async function getData(): Promise<Product[]> {
-  const response = await fetch("/api/products");
-  return convertToJson(response)
+  const response = await fetch(`${baseURL}products`);
+  return convertToJson(response);
 }
 
-export async function findProductById(id:string) {
-  const response = await fetch(baseURL + `products/${id}`);
-  const product = await convertToJson(response) as Product;
-  console.log(product)
-  return product;
+export async function findProductById(id: string): Promise<Product> {
+  const response = await fetch(`${baseURL}products/${id}`);
+  return convertToJson(response);
 }
