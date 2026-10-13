@@ -1,53 +1,50 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { type CollectionEntry, getCollection } from "astro:content";
 
-// map though all products to create a page for each one
-export async function getStaticPaths() {
-  const products = await getCollection("products");
+export const prerender = false;
 
-  return products.map((product) => ({
-    params: { id: product.id },
-    props: product
-  }));
+const { id } = Astro.params;
+
+if (!id) {
+  return new Response("Product ID is required", { status: 400 });
 }
-type Props = CollectionEntry<"products">;
-
-// get the product data from the props to use in the template below. The actual data is in product.data
-const product = Astro.props;
-const title = product.data.name;
-const description = product.data.descriptionHtmlSimple;
-const price = product.data.listPrice;
-const color = product.data.colors[0].colorName;
-const image = product.data.image;
-
 ---
-<Layout>
+
+<Layout title="Product">
+  <main
+    id="product-page"
+    class="divider"
+    data-product-id={id}
+  >
+    <section class="product-detail">
+      <h1 id="product-name">Loading product...</h1>
+
+      <img
+        id="product-image"
+        class="divider"
+        src="/images/placeholder.jpg"
+        alt=""
+      />
+
+      <p id="product-price" class="product-card__price"></p>
+
+      <p id="product-color" class="product__color"></p>
+
+      <p
+        id="product-description"
+        class="product__description"
+      ></p>
+
+      <div class="product-detail__add">
+        <button id="addToCart" data-id={id}>
+          Add to Cart
+        </button>
+      </div>
+
+      <p id="product-error"></p>
+    </section>
+  </main>
+
+  <script src="../../js/product-detail.ts"></script>
   <script src="../../js/product.ts"></script>
-  
-  
-    <!-- Product details will go here -->
-
-    <main class="divider">
-      <section class="product-detail">
-        <h3>{title}</h3>
-
-        <img
-          class="divider"
-          src={product.data.image}
-          alt="Marmot Ajax tent"
-        />
-
-        <p class="product-card__price">${price}</p>
-
-        <p class="product__color">{color}</p>
-
-        <p class="product__description" set:html={description}></p>
-
-        <div class="product-detail__add">
-          <button id="addToCart" data-id={product.id}>Add to Cart</button>
-        </div>
-      </section>
-    </main>
-  
 </Layout>
