@@ -12,7 +12,13 @@ export interface Product {
   };
   nameWithoutBrand: string;
   name: string;
-  image: string;
+  images: {
+    primarySmall: string;
+    primaryMedium: string;
+    primaryLarge: string;
+    primaryExtraLarge: string;
+    extraImages: { title: string; src: string }[];
+  };
   sizesAvailable: {
     zipper: string[];
   };
