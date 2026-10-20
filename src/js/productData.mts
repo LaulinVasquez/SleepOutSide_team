@@ -1,6 +1,12 @@
 import type { Product } from "./types.mts";
 
-const baseURL = import.meta.env.PUBLIC_SERVER_URL;
+const baseURL = import.meta.env.PUBLIC_SERVER_URL ||
+  (import.meta.env.DEV ? "http://localhost:3000/api/v1/" : "");
+
+function productUrl(path: string) {
+  if (!baseURL) throw new Error("PUBLIC_SERVER_URL is not configured");
+  return `${baseURL.replace(/\/+$/, "")}/${path}`;
+}
 
 async function convertToJson(response: Response) {
   if (response.ok) {
@@ -14,11 +20,12 @@ async function convertToJson(response: Response) {
 }
 
 export async function getData(): Promise<Product[]> {
-  const response = await fetch(`${baseURL}products`);
-  return convertToJson(response);
+  const response = await fetch(productUrl("products"), { signal: AbortSignal.timeout(15000) });
+  const data = await convertToJson(response);
+  return data.results;
 }
 
 export async function findProductById(id: string): Promise<Product> {
-  const response = await fetch(`${baseURL}products/${id}`);
+  const response = await fetch(productUrl(`products/${encodeURIComponent(id)}`), { signal: AbortSignal.timeout(15000) });
   return convertToJson(response);
 }

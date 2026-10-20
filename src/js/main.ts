@@ -1,7 +1,4 @@
 import { getData } from "./productData.mts";
-import { openUserMenu } from "./utils.mjs";
-
-openUserMenu(".user__button");
 
 const productList = document.querySelector<HTMLUListElement>("#product-list");
 
