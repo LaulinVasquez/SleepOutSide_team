@@ -21,8 +21,13 @@ async function convertToJson(response: Response) {
 
 export async function getData(): Promise<Product[]> {
   const response = await fetch(productUrl("products"), { signal: AbortSignal.timeout(15000) });
-  const data = await convertToJson(response);
-  return data.results;
+  const data: unknown = await convertToJson(response);
+
+  if (!Array.isArray(data)) {
+    throw new Error("Products API returned an invalid response");
+  }
+
+  return data as Product[];
 }
 
 export async function findProductById(id: string): Promise<Product> {
