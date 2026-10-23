@@ -1,4 +1,4 @@
-import { getData } from "./productData.mts";
+import { getProducts } from "./productData.mts";
 
 const productList = document.querySelector<HTMLUListElement>("#product-list");
 
@@ -8,7 +8,7 @@ if (productList) {
 
 async function loadProducts(list: HTMLUListElement) {
   try {
-    const products = await getData();
+    const products = await getProducts();
 
     // Feature Selected Cards:
     // const featuredIds = ["985RF", "985PR", "880RR", "344YJ"];

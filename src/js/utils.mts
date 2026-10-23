@@ -59,3 +59,10 @@ export function openUserMenu(selector:string) {
     });
   });
 }
+
+// read a single query-string parameter (e.g. ?category=tents) from the current URL
+export function getParam(param: string) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  return urlParams.get(param);
+}

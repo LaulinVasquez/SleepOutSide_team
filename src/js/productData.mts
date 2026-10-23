@@ -19,21 +19,17 @@ async function convertToJson(response: Response) {
   );
 }
 
-export async function getData(): Promise<Product[]> {
-  const response = await fetch(productUrl("products"), { signal: AbortSignal.timeout(15000) });
+export async function getProducts(category = ""): Promise<Product[]> {
+  const query = category ? `?category=${encodeURIComponent(category)}` : "";
+  const response = await fetch(productUrl(`products${query}`), { signal: AbortSignal.timeout(15000) });
   const data: unknown = await convertToJson(response);
-  const products =
-    Array.isArray(data)
-      ? data
-      : typeof data === "object" && data !== null && "results" in data
-        ? data.results
-        : undefined;
+  const results = Array.isArray(data) ? data : (data as { results?: unknown })?.results;
 
-  if (!Array.isArray(products)) {
+  if (!Array.isArray(results)) {
     throw new Error("Products API returned an invalid response");
   }
 
-  return products as Product[];
+  return results as Product[];
 }
 
 export async function findProductById(id: string): Promise<Product> {

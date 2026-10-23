@@ -1,0 +1,10 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProductList from "../../components/ProductList.svelte";
+---
+
+<Layout title="Products">
+  <main class="divider">
+    <ProductList client:load />
+  </main>
+</Layout>
