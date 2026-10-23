@@ -330,3 +330,35 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+/* category grid on the home page */
+.categories {
+  padding: 0 1rem;
+}
+.category-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.category-grid a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid var(--light-grey);
+  text-decoration: none;
+  color: var(--dark-grey);
+}
+.category-grid img {
+  width: 80px;
+  height: 80px;
+}
+@media screen and (min-width: 500px) {
+  .category-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

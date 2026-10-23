@@ -19,8 +19,9 @@ async function convertToJson(response: Response) {
   );
 }
 
-export async function getData(): Promise<Product[]> {
-  const response = await fetch(productUrl("products"), { signal: AbortSignal.timeout(15000) });
+export async function getProducts(category = ""): Promise<Product[]> {
+  const query = category ? `?category=${encodeURIComponent(category)}` : "";
+  const response = await fetch(productUrl(`products${query}`), { signal: AbortSignal.timeout(15000) });
   const data: unknown = await convertToJson(response);
   const results = Array.isArray(data) ? data : (data as { results?: unknown })?.results;
 
