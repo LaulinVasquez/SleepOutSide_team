@@ -6,6 +6,6 @@ import svelte from '@astrojs/svelte';
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: netlify(),
+  adapter: process.env.NODE_ENV === 'production' ? netlify() : undefined,
   integrations: [svelte()]
 });

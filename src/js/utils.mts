@@ -1,5 +1,3 @@
-import jwt, { type SignOptions } from "jsonwebtoken";
-
 // wrapper for querySelector...returns matching element
 export function qs(selector:string, parent = document) {
   return parent.querySelector(selector);
@@ -68,4 +66,3 @@ export function getParam(param: string) {
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
-
