@@ -18,9 +18,13 @@
     "@types/cors": "^2.8.19",
     "astro": "^7.4.2",
     "cors": "^2.8.6",
+    "jsonwebtoken": "^9.0.3",
     "svelte": "^5.57.2"
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10"
   }
 }
