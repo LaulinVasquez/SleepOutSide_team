@@ -8,3 +8,8 @@ import ProductList from "../../components/ProductList.svelte";
     <ProductList client:load />
   </main>
 </Layout>
+
+<script>
+  import Alert from '../../js/Alert';
+  void new Alert().init();
+</script>

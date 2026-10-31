@@ -74,3 +74,10 @@ Astro middleware handles runtime route errors and preserves JSON status codes
 for `/api/*`. The custom 404 page also handles static-host fallback navigation.
 Error pages do not fetch products, so an API outage cannot create a redirect loop.
 Run client error tests with `node --experimental-strip-types --test tests/errors.test.mjs`.
+
+### Announcements
+
+Edit `public/json/alerts.json` to show announcements above the main content on
+home and product listing pages. Each entry has `message`, `background`, and
+`color` fields (CSS color values). Use `[]` to remove all announcements. Messages
+are rendered as plain text. Missing or invalid JSON does not interrupt the page.
