@@ -34,10 +34,18 @@ export default class Alert {
         paragraph.textContent = alert.message;
         paragraph.style.backgroundColor = alert.background;
         paragraph.style.color = alert.color;
-        paragraph.style.padding = '1rem';
         section.append(paragraph);
       }
       main.prepend(section);
+      window.setTimeout(() => {
+        if (!section.isConnected) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          section.remove();
+          return;
+        }
+        section.classList.add('alert-list--leaving');
+        window.setTimeout(() => section.remove(), 400);
+      }, 5000);
     } catch (error) {
       console.warn('Announcements could not be loaded.', error);
     }

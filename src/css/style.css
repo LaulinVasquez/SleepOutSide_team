@@ -397,3 +397,32 @@ footer {
 [hidden] {
   display: none !important;
 }
+
+/* Announcements share the storefront's spacing, typography, and accent colors. */
+.alert-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem;
+  opacity: 1;
+  transition: opacity 400ms ease;
+}
+.alert-list p {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--primary-color);
+  background: var(--secondary-color);
+  color: white;
+  font-family: var(--font-body);
+  font-size: var(--font-base);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.alert-list--leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .alert-list {
+    transition: none;
+  }
+}

@@ -81,3 +81,7 @@ Edit `public/json/alerts.json` to show announcements above the main content on
 home and product listing pages. Each entry has `message`, `background`, and
 `color` fields (CSS color values). Use `[]` to remove all announcements. Messages
 are rendered as plain text. Missing or invalid JSON does not interrupt the page.
+
+Announcements use the storefront typography and orange accent border, while JSON
+colors remain customizable. After five seconds they fade out over 400ms and are
+removed; reduced-motion users get immediate removal after five seconds.
