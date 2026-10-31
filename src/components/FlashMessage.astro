@@ -1,0 +1,26 @@
+<div id="flash-message" role="alert" hidden>
+  <span id="flash-text"></span>
+  <button type="button" aria-label="Dismiss message">Dismiss</button>
+</div>
+<script>
+  import { errorMessages, isErrorStatus } from '../js/errors';
+  function showFlash() {
+    const url = new URL(window.location.href);
+    const status = Number(url.searchParams.get('flash'));
+    if (!isErrorStatus(status)) return;
+    url.searchParams.delete('flash');
+    window.history.replaceState(window.history.state, '', url);
+    const banner = document.getElementById('flash-message');
+    const text = document.getElementById('flash-text');
+    if (!banner || !text) return;
+    text.textContent = errorMessages[status];
+    banner.hidden = false;
+    banner.querySelector('button')?.addEventListener('click', () => { banner.hidden = true; }, { once: true });
+  }
+  showFlash();
+  document.addEventListener('astro:page-load', showFlash);
+</script>
+<style>
+  div { margin: 1rem auto; padding: 1rem; max-width: 1080px; border: 1px solid #9b2929; background: #fff1f1; color: #702020; }
+  button { margin-left: 1rem; padding: .35rem .7rem; }
+</style>

@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { errorMessages } from '../js/errors';
+---
+<Layout title="Page not found">
+  <main class="divider">
+    <h1>404 — Page not found</h1>
+    <p>{errorMessages[404]}</p>
+    <p><a href="/">Return home</a></p>
+  </main>
+</Layout>
+<script>
+  import { redirectForError } from '../js/errors';
+  // Static hosts serve this document for unknown URLs without running middleware.
+  redirectForError(404);
+</script>
