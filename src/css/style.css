@@ -392,3 +392,8 @@ footer {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* Keep hidden controls hidden even when component styles set display. */
+[hidden] {
+  display: none !important;
+}

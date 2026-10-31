@@ -22,7 +22,7 @@ if (!id) {
       <img
         id="product-image"
         class="divider"
-        src="/images/placeholder.jpg"
+        hidden
         alt=""
       />
 
@@ -36,12 +36,12 @@ if (!id) {
       ></p>
 
       <div class="product-detail__add">
-        <button id="addToCart" data-id={id}>
+        <button id="addToCart" data-id={id} hidden disabled>
           Add to Cart
         </button>
       </div>
 
-      <p id="product-error"></p>
+      <p id="product-error" role="alert"></p>
     </section>
   </main>
 

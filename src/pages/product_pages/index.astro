@@ -1,0 +1,7 @@
+---
+export const prerender = false;
+const productId = Astro.url.searchParams.get('product')?.trim();
+return Astro.redirect(productId
+  ? `/products/${encodeURIComponent(productId)}`
+  : '/404?flash=404', 302);
+---

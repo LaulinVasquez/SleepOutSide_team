@@ -5,6 +5,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // Error pages must remain renderable even if another route fails.
   const path = context.url.pathname.replace(/\/$/, '');
   if (['/401', '/404', '/500'].includes(path)) return next();
+  if (path === '/product_pages/index.html') {
+    const productId = context.url.searchParams.get('product')?.trim();
+    return context.redirect(productId ? `/products/${encodeURIComponent(productId)}` : '/404?flash=404', 302);
+  }
   const isApi = path === '/api' || path.startsWith('/api/');
   const handleError = (status: 401 | 404 | 500) => {
     if (isApi) return new Response(JSON.stringify({ error: {
