@@ -17,7 +17,10 @@ async function addToCartHandler(e:Event) {
   target.disabled = true;
   try {
     const product = await findProductById(target.dataset.id);
-    addProductToCart(product);
+    const selectedColor =
+      product.colors.find((color) => color.colorCode === target.dataset.color) ??
+      product.colors[0];
+    addProductToCart({ ...product, selectedColor });
     target.disabled = false;
   } catch {
     target.hidden = true;

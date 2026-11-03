@@ -251,6 +251,55 @@ button {
   margin: 0 auto;
 }
 
+/* Product color swatches */
+.product-colors {
+  border: none;
+  padding: 0;
+  margin: 1em 0;
+}
+
+.product-colors legend {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.color-swatch {
+  cursor: pointer;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.color-swatch input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.product-detail .color-swatch img {
+  width: 40px;
+  height: 40px;
+  max-height: none;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.color-swatch:has(input:checked) {
+  border-color: var(--primary-color);
+}
+
+.color-swatch:has(input:focus-visible) {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
 .product__srp {
   text-decoration: line-through;
   color: var(--dark-grey);
