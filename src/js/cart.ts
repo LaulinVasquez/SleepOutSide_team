@@ -53,7 +53,7 @@ function cartItemTemplate(item: Product, index: number) {
     <h2 class="card__name">${item.name}</h2>
   </a>
   <button class="cart-card__remove" type="button" data-id="${item.id}" data-index="${index}" aria-label="Remove ${item.name} from cart">X</button>
-  <p class="cart-card__color">${item.colors[0].colorName}</p>
+  <p class="cart-card__color">${item.selectedColor?.colorName ?? item.colors[0]?.colorName ?? ""}</p>
   <p class="cart-card__quantity">qty: 1</p>
   <p class="cart-card__price">$${item.finalPrice}</p>
 </li>`;
