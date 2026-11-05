@@ -6,27 +6,19 @@ export function qs(selector:string, parent = document) {
 // export const qs = (selector, parent = document) => parent.querySelector(selector);
 
 // retrieve data from localstorage
-export function getLocalStorage(key: string) {
+export function getLocalStorage<T>(key: string): T | null {
   const data = localStorage.getItem(key);
 
   if (!data) {
-    return [];
+    return null;
   }
 
-  let parsed;
   try {
-    parsed = JSON.parse(data);
+    return JSON.parse(data) as T;
   } catch {
-    // malformed JSON stored under this key — treat as empty
-    return [];
+    // malformed JSON stored under this key
+    return null;
   }
-
-  // guard against stored values like "null" or non-array data
-  if (!Array.isArray(parsed)) {
-    return [];
-  }
-
-  return parsed;
 }
 // save data to local storage
 export function setLocalStorage(key:string, data:any) {

@@ -59,7 +59,7 @@
           <img src={userIcon} alt="user icon" />
         </button>
         <nav class="user__menu" class:open={menuOpen}>
-          <a href="#">Login</a>
+          <a href="/login/">Login</a>
           <a href="#">Profile</a>
           <a href="#">Orders</a>
         </nav>
