@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
+  import { logout, userStore } from "../js/auth.svelte";
 
   export let logo: string;
   export let userIcon: string;
@@ -14,6 +15,11 @@
 
   function closeMenu() {
     menuOpen = false;
+  }
+
+  function handleLogout() {
+    logout();
+    closeMenu();
   }
 
   // Triggered by a "cart:add" event dispatched from anywhere in the app
@@ -58,10 +64,17 @@
         >
           <img src={userIcon} alt="user icon" />
         </button>
+        {#if userStore.isLoggedIn}
+          <span class="user__name">{userStore.user?.name}</span>
+        {/if}
         <nav class="user__menu" class:open={menuOpen}>
-          <a href="#">Login</a>
-          <a href="#">Profile</a>
-          <a href="#">Orders</a>
+          {#if userStore.isLoggedIn}
+            <button type="button" class="user__logout" on:click={handleLogout}>Logout</button>
+            <a href="/profile/">Profile</a>
+            <a href="#">Orders</a>
+          {:else}
+            <a href="/login/">Login</a>
+          {/if}
         </nav>
       </div>
     </div>
@@ -93,6 +106,24 @@
 </header>
 
 <style>
+  .user__name {
+    margin-left: 0.35rem;
+    color: var(--dark-grey);
+  }
+
+  .user__logout {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--dark-grey);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .user__logout:hover {
+    text-decoration: underline;
+  }
+
   @keyframes cart-bounce {
     0%,
     100% {

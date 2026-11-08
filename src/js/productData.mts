@@ -1,17 +1,10 @@
 import { apiFetch } from "./errors";
+import { apiUrl } from "./api-url";
 import type { Product } from "./types.mts";
-
-const baseURL = import.meta.env.PUBLIC_SERVER_URL ||
-  (import.meta.env.DEV ? "http://localhost:3000/api/v1/" : "");
-
-function productUrl(path: string) {
-  if (!baseURL) throw new Error("PUBLIC_SERVER_URL is not configured");
-  return `${baseURL.replace(/\/+$/, "")}/${path}`;
-}
 
 export async function getProducts(category = ""): Promise<Product[]> {
   const query = category ? `?category=${encodeURIComponent(category)}` : "";
-  const response = await apiFetch(productUrl(`products${query}`), { signal: AbortSignal.timeout(15000) });
+  const response = await apiFetch(apiUrl(`products${query}`), { signal: AbortSignal.timeout(15000) });
   const data: unknown = await response.json();
   const results = Array.isArray(data) ? data : (data as { results?: unknown })?.results;
 
@@ -23,6 +16,6 @@ export async function getProducts(category = ""): Promise<Product[]> {
 }
 
 export async function findProductById(id: string): Promise<Product> {
-  const response = await apiFetch(productUrl(`products/${encodeURIComponent(id)}`), { signal: AbortSignal.timeout(15000) });
+  const response = await apiFetch(apiUrl(`products/${encodeURIComponent(id)}`), { signal: AbortSignal.timeout(15000) });
   return response.json();
 }

@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Profile from '../../components/Profile.svelte';
+---
+
+<Layout title="Profile">
+  <main class="divider">
+    <Profile client:load />
+  </main>
+</Layout>
