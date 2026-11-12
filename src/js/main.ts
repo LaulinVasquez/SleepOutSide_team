@@ -1,4 +1,7 @@
 import { getProducts } from "./productData.mts";
+import { checkAuth } from "./auth.svelte.ts";
+
+checkAuth();
 
 const productList = document.querySelector<HTMLUListElement>("#product-list");
 

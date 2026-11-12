@@ -1,5 +1,5 @@
 import { findProductById } from "./productData.mts";
-import type { Color } from "./types.mts";
+import type { Color, Product } from "./types.mts";
 
 const page = document.querySelector<HTMLElement>("#product-page");
 
@@ -14,6 +14,7 @@ if (page) {
 async function loadProduct(id: string) {
   const nameElement = document.querySelector<HTMLElement>("#product-name");
   const imageElement = document.querySelector<HTMLImageElement>("#product-image");
+  const galleryElement = document.querySelector<HTMLElement>("#product-gallery");
   const priceElement = document.querySelector<HTMLElement>("#product-price");
   const colorElement = document.querySelector<HTMLElement>("#product-color");
   const descriptionElement = document.querySelector<HTMLElement>("#product-description");
@@ -27,10 +28,9 @@ async function loadProduct(id: string) {
 
     if (nameElement) nameElement.textContent = product.name;
 
-    if (imageElement) {
-      imageElement.src = product.images.primaryLarge;
-      imageElement.alt = product.name;
-      imageElement.hidden = false;
+    if (imageElement && galleryElement) {
+      renderProductGallery(product.images, product.name);
+      galleryElement.hidden = false;
     }
 
     if (priceElement) priceElement.textContent = `$${product.finalPrice}`;
@@ -51,13 +51,78 @@ async function loadProduct(id: string) {
     console.error("Unable to load product", error);
 
     if (addButton) { addButton.hidden = true; addButton.disabled = true; }
-    if (imageElement) imageElement.hidden = true;
+    if (galleryElement) galleryElement.hidden = true;
     if (nameElement) nameElement.textContent = "Product unavailable";
     if (errorElement) {
       errorElement.textContent =
         "This product could not be loaded from the server.";
     }
   }
+}
+
+function renderProductGallery(
+  images: Product["images"],
+  productName: string,
+) {
+  const imageElement = document.querySelector<HTMLImageElement>("#product-image");
+  const indicatorsElement = document.querySelector<HTMLElement>(
+    "#product-gallery-indicators",
+  );
+  const statusElement = document.querySelector<HTMLElement>(
+    "#product-gallery-status",
+  );
+  const previousButton = document.querySelector<HTMLButtonElement>(
+    "#product-gallery-previous",
+  );
+  const nextButton = document.querySelector<HTMLButtonElement>(
+    "#product-gallery-next",
+  );
+
+  if (!imageElement || !indicatorsElement || !statusElement) return;
+
+  const productImages = [
+    { src: images.primaryLarge, title: productName },
+    ...images.extraImages.map((image) => ({
+      src: image.src,
+      title: image.title || productName,
+    })),
+  ];
+  let currentIndex = 0;
+
+  indicatorsElement.replaceChildren();
+
+  const updateGallery = (index: number) => {
+    currentIndex = (index + productImages.length) % productImages.length;
+    const currentImage = productImages[currentIndex];
+
+    imageElement.src = currentImage.src;
+    imageElement.alt = `${productName}: ${currentImage.title}`;
+    statusElement.textContent = `${currentIndex + 1} of ${productImages.length}`;
+
+    indicatorsElement.querySelectorAll("button").forEach((indicator, indicatorIndex) => {
+      const isSelected = indicatorIndex === currentIndex;
+      indicator.setAttribute("aria-selected", String(isSelected));
+      indicator.classList.toggle("is-active", isSelected);
+    });
+
+    const hasMultipleImages = productImages.length > 1;
+    if (previousButton) previousButton.hidden = !hasMultipleImages;
+    if (nextButton) nextButton.hidden = !hasMultipleImages;
+  };
+
+  productImages.forEach((image, index) => {
+    const indicator = document.createElement("button");
+    indicator.type = "button";
+    indicator.className = "product-gallery__indicator";
+    indicator.setAttribute("role", "tab");
+    indicator.setAttribute("aria-label", `Show product image ${index + 1}`);
+    indicator.addEventListener("click", () => updateGallery(index));
+    indicatorsElement.append(indicator);
+  });
+
+  previousButton?.addEventListener("click", () => updateGallery(currentIndex - 1));
+  nextButton?.addEventListener("click", () => updateGallery(currentIndex + 1));
+  updateGallery(0);
 }
 
 // Show one clickable swatch per color and remember which one the customer picked
