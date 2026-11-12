@@ -1,3 +1,4 @@
+import { apiFetch } from "./errors";
 import type { Product } from "./types.mts";
 
 const baseURL = import.meta.env.PUBLIC_SERVER_URL ||
@@ -8,21 +9,10 @@ function productUrl(path: string) {
   return `${baseURL.replace(/\/+$/, "")}/${path}`;
 }
 
-async function convertToJson(response: Response) {
-  if (response.ok) {
-    return response.json();
-  }
-
-  const details = await response.text();
-  throw new Error(
-    `Request failed (${response.status} ${response.statusText}): ${details}`
-  );
-}
-
 export async function getProducts(category = ""): Promise<Product[]> {
   const query = category ? `?category=${encodeURIComponent(category)}` : "";
-  const response = await fetch(productUrl(`products${query}`), { signal: AbortSignal.timeout(15000) });
-  const data: unknown = await convertToJson(response);
+  const response = await apiFetch(productUrl(`products${query}`), { signal: AbortSignal.timeout(15000) });
+  const data: unknown = await response.json();
   const results = Array.isArray(data) ? data : (data as { results?: unknown })?.results;
 
   if (!Array.isArray(results)) {
@@ -33,6 +23,6 @@ export async function getProducts(category = ""): Promise<Product[]> {
 }
 
 export async function findProductById(id: string): Promise<Product> {
-  const response = await fetch(productUrl(`products/${encodeURIComponent(id)}`), { signal: AbortSignal.timeout(15000) });
-  return convertToJson(response);
+  const response = await apiFetch(productUrl(`products/${encodeURIComponent(id)}`), { signal: AbortSignal.timeout(15000) });
+  return response.json();
 }

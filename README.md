@@ -61,3 +61,27 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+### Route error handling
+
+Browser requests should use `apiFetch` from `src/js/errors.ts`. Responses with
+401, 404, or 500 redirect to the matching error page; network failures use 500.
+The shared layout displays a dismissible flash message and removes its marker
+from the URL so refreshing does not repeat it. Redirect destinations and messages
+are fixed locally. The 401 page is used until a login UI is implemented.
+
+Astro middleware handles runtime route errors and preserves JSON status codes
+for `/api/*`. The custom 404 page also handles static-host fallback navigation.
+Error pages do not fetch products, so an API outage cannot create a redirect loop.
+Run client error tests with `node --experimental-strip-types --test tests/errors.test.mjs`.
+
+### Announcements
+
+Edit `public/json/alerts.json` to show announcements above the main content on
+home and product listing pages. Each entry has `message`, `background`, and
+`color` fields (CSS color values). Use `[]` to remove all announcements. Messages
+are rendered as plain text. Missing or invalid JSON does not interrupt the page.
+
+Announcements use the storefront typography and orange accent border, while JSON
+colors remain customizable. After five seconds they fade out over 400ms and are
+removed; reduced-motion users get immediate removal after five seconds.

@@ -12,10 +12,20 @@ function addProductToCart(product: Product) {
 }
 // add to cart button event handler
 async function addToCartHandler(e:Event) {
-  const target = e.target as HTMLButtonElement
-  if(target.dataset.id) {
+  const target = e.currentTarget as HTMLButtonElement;
+  if (!target.dataset.id || target.disabled || target.hidden) return;
+  target.disabled = true;
+  try {
     const product = await findProductById(target.dataset.id);
-    addProductToCart(product);
+    const selectedColor =
+      product.colors.find((color) => color.colorCode === target.dataset.color) ??
+      product.colors[0];
+    addProductToCart({ ...product, selectedColor });
+    target.disabled = false;
+  } catch {
+    target.hidden = true;
+    const errorElement = document.getElementById("product-error");
+    if (errorElement) errorElement.textContent = "This product could not be added to your cart. Please try again later.";
   }
 }
 

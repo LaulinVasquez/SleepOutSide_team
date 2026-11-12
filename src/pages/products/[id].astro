@@ -22,13 +22,19 @@ if (!id) {
       <img
         id="product-image"
         class="divider"
-        src="/images/placeholder.jpg"
+        hidden
         alt=""
       />
 
       <p id="product-price" class="product-card__price"></p>
 
       <p id="product-color" class="product__color"></p>
+      <fieldset id="product-colors" class="product-colors" hidden>
+        <legend>
+          Color: <span id="selected-color-name"></span>
+        </legend>
+        <div id="color-swatches" class="color-swatches"></div>
+      </fieldset>
 
       <p
         id="product-description"
@@ -36,12 +42,12 @@ if (!id) {
       ></p>
 
       <div class="product-detail__add">
-        <button id="addToCart" data-id={id}>
+        <button id="addToCart" data-id={id} hidden disabled>
           Add to Cart
         </button>
       </div>
 
-      <p id="product-error"></p>
+      <p id="product-error" role="alert"></p>
     </section>
   </main>
 

@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { errorMessages } from '../js/errors';
+---
+<Layout title="Something went wrong">
+  <main class="divider">
+    <h1>500 — Something went wrong</h1>
+    <p>{errorMessages[500]}</p>
+    <p><a href="/">Return home</a></p>
+  </main>
+</Layout>

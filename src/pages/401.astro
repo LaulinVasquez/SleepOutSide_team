@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { errorMessages } from '../js/errors';
+---
+<Layout title="Sign-in required">
+  <main class="divider">
+    <h1>401 — Sign-in required</h1>
+    <p>{errorMessages[401]}</p>
+    <p><a href="/">Return home</a></p>
+  </main>
+</Layout>

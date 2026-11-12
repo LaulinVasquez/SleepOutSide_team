@@ -18,6 +18,7 @@ export interface Product {
   brand: Brand;
   listPrice: number;
   finalPrice: number;
+  selectedColor?: Color;
 }
 
 export interface Review {
