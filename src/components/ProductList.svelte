@@ -10,6 +10,22 @@
   let products: Product[] = $state([]);
   let loading = $state(true);
   let error = $state("");
+  let sortBy = $state("default");
+
+  function sortedProducts() {
+    const sorted = [...products];
+
+    switch (sortBy) {
+      case "name":
+        return sorted.sort((a, b) => a.name.localeCompare(b.name));
+      case "price-asc":
+        return sorted.sort((a, b) => a.finalPrice - b.finalPrice);
+      case "price-desc":
+        return sorted.sort((a, b) => b.finalPrice - a.finalPrice);
+      default:
+        return sorted;
+    }
+  }
 
   async function init() {
     category = getParam("category") || "";
@@ -27,14 +43,25 @@
 </script>
 
 <section class="products">
-  <h2>Top products: {category || "all"}</h2>
+  <div class="products__header">
+    <h2>Top products: {category || "all"}</h2>
+    <label for="product-sort">
+      Sort by:
+      <select id="product-sort" bind:value={sortBy}>
+        <option value="default">Featured</option>
+        <option value="name">Name A–Z</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+      </select>
+    </label>
+  </div>
   <ul class="product-list">
     {#if loading}
       <li>Loading products...</li>
     {:else if error}
       <li>{error}</li>
     {:else}
-      {#each products as product (product.id)}
+      {#each sortedProducts() as product (product.id)}
         <ProductSummary {product} />
       {/each}
     {/if}
