@@ -73,8 +73,33 @@ if (!id) {
 
       <p id="product-error" role="alert"></p>
     </section>
+
+    <section class="product-comments" aria-labelledby="comments-heading">
+      <h2 id="comments-heading">
+        Customer Comments <span id="comment-count"></span>
+      </h2>
+
+      <ul id="comment-list" class="comment-list">
+        <li class="comment comment--empty">Loading comments...</li>
+      </ul>
+
+      <form id="comment-form" class="comment-form">
+        <h3>Leave a comment</h3>
+        <label>
+          Name
+          <input id="comment-name" name="author" type="text" maxlength="50" required />
+        </label>
+        <label>
+          Comment
+          <textarea id="comment-text" name="text" rows="4" maxlength="500" required></textarea>
+        </label>
+        <button type="submit">Post Comment</button>
+        <p id="comment-message" class="comment-message" aria-live="polite"></p>
+      </form>
+    </section>
   </main>
 
+  <script src="../../js/product-comments.ts"></script>
   <script src="../../js/product-detail.ts"></script>
   <script src="../../js/product.ts"></script>
 </Layout>

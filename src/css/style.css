@@ -545,3 +545,68 @@ footer {
     transition: none;
   }
 }
+
+
+/* Product comments */
+.product-comments {
+  padding: 1em;
+  max-width: 500px;
+  margin: auto;
+}
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5em;
+}
+
+.comment {
+  border-bottom: 1px solid var(--light-grey);
+  padding: 0.75em 0;
+}
+
+.comment--empty {
+  color: var(--dark-grey);
+  font-style: italic;
+}
+
+.comment__meta {
+  margin: 0 0 0.25em;
+  font-size: var(--small-font);
+}
+
+.comment__text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.comment-form h3 {
+  margin: 0;
+}
+
+.comment-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  gap: 0.25em;
+}
+
+.comment-form input,
+.comment-form textarea {
+  font: inherit;
+  padding: 0.5em;
+}
+
+.comment-message {
+  min-height: 1.2em;
+  margin: 0;
+  font-size: var(--small-font);
+  text-align: center;
+}
