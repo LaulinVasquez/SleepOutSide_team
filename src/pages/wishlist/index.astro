@@ -1,0 +1,18 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const title = "Wish List";
+---
+
+<Layout title={title}>
+  <main class="divider">
+    <section class="products">
+      <h2>My Wish List</h2>
+      <p id="wishlist-note" class="wishlist-note"></p>
+      <ul id="wishlist-list" class="product-list">
+        <li class="cart-empty">Loading your wish list...</li>
+      </ul>
+      <p class="wishlist-links"><a href="/cart/">Go to cart</a></p>
+    </section>
+  </main>
+  <script src="../../js/wishlist-page.ts"></script>
+</Layout>

@@ -444,6 +444,46 @@ button {
   color: var(--primary-color);
 }
 
+
+/* Wish list */
+.product-detail__wishlist {
+  text-align: center;
+  margin-top: 0.75em;
+}
+
+.wishlist-button {
+  background-color: transparent;
+  color: var(--secondary-color);
+  border: 2px solid var(--secondary-color);
+}
+
+.wishlist-button[aria-pressed="true"] {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.wishlist-message {
+  min-height: 1.2em;
+  font-size: var(--small-font);
+}
+
+.wishlist-note {
+  font-size: var(--small-font);
+  text-align: center;
+}
+
+.wishlist-card__move {
+  grid-row: 3;
+  grid-column: 2 / 4;
+  justify-self: end;
+  margin: 0.5em 0;
+  padding: 0.3em 1em;
+  font-size: var(--small-font);
+}
+
+.wishlist-links {
+  text-align: center;
+}
 .cart-empty {
   list-style: none;
   text-align: center;
