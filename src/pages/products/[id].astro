@@ -71,6 +71,13 @@ if (!id) {
         </button>
       </div>
 
+      <div class="product-detail__wishlist">
+        <button id="addToWishlist" type="button" class="wishlist-button" hidden>
+          ♡ Add to Wish List
+        </button>
+        <p id="wishlist-message" class="wishlist-message" aria-live="polite"></p>
+      </div>
+
       <p id="product-error" role="alert"></p>
     </section>
 
@@ -102,4 +109,5 @@ if (!id) {
   <script src="../../js/product-comments.ts"></script>
   <script src="../../js/product-detail.ts"></script>
   <script src="../../js/product.ts"></script>
+  <script src="../../js/wishlist-button.ts"></script>
 </Layout>
