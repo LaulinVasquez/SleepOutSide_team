@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Newsletter from '../components/Newsletter.svelte';
 const title = "Home";
 
 
@@ -66,6 +67,7 @@ const title = "Home";
           <li>Loading products...</li>
         </ul>
       </section>
+      <Newsletter client:load />
     </main>
 </Layout>
 

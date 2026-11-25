@@ -85,3 +85,7 @@ are rendered as plain text. Missing or invalid JSON does not interrupt the page.
 Announcements use the storefront typography and orange accent border, while JSON
 colors remain customizable. After five seconds they fade out over 400ms and are
 removed; reduced-motion users get immediate removal after five seconds.
+
+### Backlog2 newsletter dependency
+
+The local API has no newsletter route. Set `PUBLIC_NEWSLETTER_URL` to the newsletter service when available; the form posts JSON `{ name, email }`, accepts any 2xx response, and handles 409 as an existing subscription. Without that setting it reports unavailability and does not claim a subscription was saved. Confirm this contract with the backend card owner before enabling.
