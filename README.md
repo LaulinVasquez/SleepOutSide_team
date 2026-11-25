@@ -85,3 +85,20 @@ are rendered as plain text. Missing or invalid JSON does not interrupt the page.
 Announcements use the storefront typography and orange accent border, while JSON
 colors remain customizable. After five seconds they fade out over 400ms and are
 removed; reduced-motion users get immediate removal after five seconds.
+
+### Backlog2 newsletter dependency
+
+The local API has no newsletter route. Set `PUBLIC_NEWSLETTER_URL` to the newsletter service when available; the form posts JSON `{ name, email }`, accepts any 2xx response, and handles 409 as an existing subscription. Without that setting it reports unavailability and does not claim a subscription was saved. Confirm this contract with the backend card owner before enabling.
+
+### Backlog2 local verification
+
+Use Node 22.12+ and the sibling `sleepoutsideServer` API. Start the API with `npm run dev` in that repository using its existing MongoDB and JWT configuration. Set this frontend's `PUBLIC_SERVER_URL=http://localhost:3000/api/v1/` (include the API prefix). Run `npx astro dev --background`; use `npx astro dev status`, `logs`, and `stop` to manage it.
+
+- Visit `/product-list/`, open Quick view for different products, and close with the Close button or Escape. The native modal manages focus and keyboard containment.
+- The home page newsletter collects name/email. Its backend dependency is described above; subscriptions cannot be saved until it is configured.
+- Sign in and visit `/account/password/` from the user menu. Supply the current password, a new 6–100 character password and matching confirmation. Verify login with the new password afterward.
+- Add products (including repeated units), visit `/cart/`, and proceed to `/checkout/`. A signed-out visitor sees a sign-in link that returns to checkout. The form loads current prices; shipping is $10 for the first unit plus $2 each additional unit, with 6% tax on merchandise only. Totals round to cents. Shipping is US-only, using the documented address constraints.
+- Use test card `4242424242424242`, a future expiration in `MM/YY`, and any three-digit code. A successful order shows its reference and clears the submitted cart. Failed submissions preserve the cart. Refresh prices if catalog prices change; sign in again if the session expires.
+- Automated checks: `node --test tests/*.test.mjs` and `npm run build`. The build requires the configured products API to be reachable. Backend HTTP tests use a mocked data layer, so they do not create orders or change passwords in your database.
+
+Validation in this implementation: frontend production build and component compilation passed; checkout calculation/payload tests passed; API password, order and existing regression tests passed. Interactive browser validation could not run because the browser host was unavailable. The Trello checkout reference image could not be accessed, so its visual match is unverified. A real MongoDB-backed checkout/password smoke test remains to be performed locally.

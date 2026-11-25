@@ -2,7 +2,7 @@ import { getLocalStorage, setLocalStorage } from "./utils.mts";
 import type {Product} from "./types.mts"
 
 function renderCartContents() {
-  const cartItems: Product[] = getLocalStorage("so-cart");
+  const cartItems: Product[] = getLocalStorage<Product[]>("so-cart") ?? [];
   const listEl = document.querySelector(".product-list");
   const footerEl = document.querySelector(".cart-footer");
   const totalEl = document.querySelector(".cart-total");
@@ -23,7 +23,7 @@ function renderCartContents() {
 }
 
 function removeFromCart(index: number) {
-  const cartItems: Product[] = getLocalStorage("so-cart");
+  const cartItems: Product[] = getLocalStorage<Product[]>("so-cart") ?? [];
   cartItems.splice(index, 1);
 
   setLocalStorage("so-cart", cartItems);

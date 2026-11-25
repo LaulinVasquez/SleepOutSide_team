@@ -17,7 +17,8 @@ import { login } from '../js/auth.svelte.ts';
     try {
         const results = await login(email, password);
         errorMessage = "";
-        onSuccess("/");
+        const next = new URLSearchParams(window.location.search).get('next');
+        onSuccess(next === '/checkout/' || next === '/account/password/' ? next : '/');
     } catch (err) {
         errorMessage = "Invalid email or password";
     }
