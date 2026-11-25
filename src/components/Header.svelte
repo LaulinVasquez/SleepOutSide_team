@@ -61,7 +61,7 @@
         <nav class="user__menu" class:open={menuOpen}>
           <a href="/login/">Login</a>
           <a href="/wishlist/">Wish List</a>
-          <a href="#">Profile</a>
+          <a href="/account/password/">Change password</a>
           <a href="#">Orders</a>
         </nav>
       </div>
